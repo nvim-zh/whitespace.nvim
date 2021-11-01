@@ -4,7 +4,7 @@ The plugin can show and remove trailing whitespaces.
 
 # Install
 
-+ [packer.nvim](https://github.com/wbthomason/packer.nvim): `use {'jdhao/whitespace.nvim'， event = 'VimEnter'}`
++ [packer.nvim](https://github.com/wbthomason/packer.nvim): `use {'jdhao/whitespace.nvim', event = 'VimEnter'}`
 + [vim-plug](https://github.com/junegunn/vim-plug): `Plug 'jdhao/whitespace.nvim'`
 
 # Usage
