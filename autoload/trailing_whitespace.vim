@@ -1,5 +1,10 @@
 " Remove trailing white space, see https://vi.stackexchange.com/a/456/15292
 function! trailing_whitespace#Strip() abort
+  " skip some files
+  if !&modifiable || !&buflisted || &bufhidden != ''
+    return 0
+  endif
+
   let l:save = winsaveview()
   " vint: next-line -ProhibitCommandRelyOnUser -ProhibitCommandWithUnintendedSideEffect
   keeppatterns %s/\v\s+$//e
