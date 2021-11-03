@@ -1,8 +1,18 @@
-" Remove trailing white space, see https://vi.stackexchange.com/a/456/15292
-function! trailing_whitespace#Strip() abort
+function! trailing_whitespace#should_skip() abort
   " skip some files
   if !&modifiable || !&buflisted || &bufhidden != ''
-    return 0
+    return v:true
+  endif
+
+  if index(g:trailing_whitespace_exclude_filetypes, &filetype) != -1
+    return v:true
+  endif
+endfunction
+
+" Remove trailing white space, see https://vi.stackexchange.com/a/456/15292
+function! trailing_whitespace#Strip() abort
+  if trailing_whitespace#should_skip()
+    return
   endif
 
   let l:save = winsaveview()
@@ -12,7 +22,7 @@ function! trailing_whitespace#Strip() abort
 endfunction
 
 function! trailing_whitespace#refresh() abort
-  if index(g:trailing_whitespace_exclude_filetypes, &filetype) != -1
+  if trailing_whitespace#should_skip()
     return
   endif
 
