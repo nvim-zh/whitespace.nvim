@@ -1,4 +1,5 @@
-let g:trailing_whitespace_exclude_filetypes = get(g:, "trailing_whitespace_exclude_filetypes", ['alpha', 'git'])
+let g:trailing_whitespace_exclude_filetypes = get(g:, "trailing_whitespace_exclude_filetypes",
+      \ ['alpha', 'git', 'floggraph'])
 
 highlight TrailingWhitespace ctermbg=red guibg=red
 
