@@ -1,6 +1,6 @@
 function! trailing_whitespace#should_skip() abort
   " skip some files
-  if !&modifiable || !&buflisted || &bufhidden != ''
+  if !&modifiable || !&buflisted || &bufhidden != '' || &buftype != ''
     return v:true
   endif
 
