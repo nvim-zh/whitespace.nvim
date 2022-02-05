@@ -28,7 +28,7 @@ function! trailing_whitespace#refresh() abort
 
   " should delete old match highlight and re-highlight if text is changed.
   " Otherwise, highlight may be misplaced.
-  call trailing_whitespace#clear_highlight()
+  call trailing_whitespace#clear_highlight(v:false)
 
   for i in range(1, line('$'))
     " getline() is 1-index
@@ -48,6 +48,15 @@ function! trailing_whitespace#refresh() abort
   endfor
 endfunction
 
-function! trailing_whitespace#clear_highlight() abort
-  call nvim_buf_clear_namespace(0, g:TrailingWhitespace_ns, 0, -1)
+" @cur_line_only: whether to clear the highlight for current line only
+function! trailing_whitespace#clear_highlight(cur_line_only) abort
+  if !a:cur_line_only
+    let l:line_start = 0
+    let l:line_end = -1
+  else
+    let l:line_start = line('.') - 1
+    let l:line_end = l:line_start + 1
+  endif
+
+  call nvim_buf_clear_namespace(0, g:TrailingWhitespace_ns, l:line_start, l:line_end)
 endfunction
