@@ -1,6 +1,9 @@
 let g:trailing_whitespace_exclude_filetypes = get(g:, "trailing_whitespace_exclude_filetypes",
       \ ['alpha', 'git', 'floggraph'])
 
+" highlight namespace for this plugin
+let g:TrailingWhitespace_ns = nvim_create_namespace("TrailingWhitespace")
+
 highlight TrailingWhitespace ctermbg=red guibg=red
 
 

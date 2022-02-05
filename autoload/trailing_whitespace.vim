@@ -30,8 +30,8 @@ function! trailing_whitespace#refresh() abort
   " Otherwise, highlight may be misplaced.
   call trailing_whitespace#clear_highlight()
 
-  let b:trailing_whitespace_pos = []
   for i in range(1, line('$'))
+    " getline() is 1-index
     let linetext = getline(i)
 
     let idx = match(linetext, '\v\s+$')
@@ -39,25 +39,15 @@ function! trailing_whitespace#refresh() abort
       continue
     endif
 
+    let l:line = i-1
     " col index should starts from 1, however match() is 0-indexed.
-    let col = idx + 1
-    let w = len(linetext) - col + 1
-    call add(b:trailing_whitespace_pos, [i, col, w])
-  endfor
+    let l:col_start = idx
+    let l:col_end = -1
 
-  call matchaddpos('TrailingWhitespace', b:trailing_whitespace_pos)
+    call nvim_buf_add_highlight(0, g:TrailingWhitespace_ns, "TrailingWhitespace", l:line, l:col_start, l:col_end)
+  endfor
 endfunction
 
 function! trailing_whitespace#clear_highlight() abort
-  let l:match_ids = []
-  for l:el in getmatches()
-    if l:el.group == 'TrailingWhitespace'
-      call add(l:match_ids, l:el.id)
-    endif
-  endfor
-
-  for _id in l:match_ids
-    call matchdelete(_id)
-  endfor
+  call nvim_buf_clear_namespace(0, g:TrailingWhitespace_ns, 0, -1)
 endfunction
-
