@@ -8,7 +8,7 @@ highlight TrailingWhitespace ctermbg=red guibg=red
 
 augroup trailing_space
   autocmd!
-  autocmd FileType,InsertLeave,TextChanged * call trailing_whitespace#refresh()
+  autocmd FileType,InsertLeave,TextChanged,BufEnter * call trailing_whitespace#refresh()
   autocmd InsertEnter * call trailing_whitespace#clear_highlight(v:true)
 augroup END
 
